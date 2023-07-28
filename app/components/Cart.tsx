@@ -22,11 +22,15 @@ const Cart = () => {
       onClick={() => toggleCart()}
       className="fixed w-full h-screen left-0 top-0 bg-black/25"
     >
+      {/* Cart */}
       <motion.div
         layout
         onClick={(e) => e.stopPropagation()}
-        className="bg-white absolute right-0 top-0 w-1/4 h-screen p-12 overflow-y-scroll text-gray-700"
+        className="bg-white absolute right-0 top-0 w-full md:w-2/5 h-screen p-12 overflow-y-scroll text-gray-700"
       >
+        <button onClick={() => toggleCart()} className="absolute right-4 top-4">
+          X
+        </button>
         {cart.length > 0 && <h1>Here's your shopping list 📃</h1>}
         {cart.map((item) => (
           <motion.div layout key={item.id} className="flex py-4 gap-4">
