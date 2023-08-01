@@ -6,9 +6,17 @@ import formatPrice from "@/util/priceFormat";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
 import emptyCart from "@/public/empty-cart.png";
 import { AnimatePresence, motion } from "framer-motion";
+import Checkout from "./Checkout";
 
 const Cart = () => {
-  const { toggleCart, cart, addProduct, removeProduct } = useCartStore();
+  const {
+    toggleCart,
+    cart,
+    addProduct,
+    removeProduct,
+    onCheckout,
+    setCheckout,
+  } = useCartStore();
 
   const totalPrice = cart.reduce((acc, item) => {
     return acc + item.unit_amount! * item.quantity;
@@ -28,60 +36,71 @@ const Cart = () => {
         onClick={(e) => e.stopPropagation()}
         className="bg-white absolute right-0 top-0 w-full md:w-2/5 h-screen p-12 overflow-y-scroll text-gray-700"
       >
+        <button onClick={() => setCheckout("cart")}>Go back</button>
         <button onClick={() => toggleCart()} className="absolute right-4 top-4">
           X
         </button>
-        {cart.length > 0 && <h1>Here's your shopping list 📃</h1>}
-        {cart.map((item) => (
-          <motion.div layout key={item.id} className="flex py-4 gap-4">
-            <Image
-              src={item.image}
-              alt={item.name}
-              width={120}
-              height={120}
-              className="rounded-md h-24 object-cover"
-            />
-            <motion.div layout>
-              <h2>{item.name}</h2>
-              <div className="flex gap-2">
-                <h2>Quantity: {item.quantity}</h2>
-                <button
-                  onClick={() =>
-                    removeProduct({
-                      id: item.id,
-                      name: item.name,
-                      image: item.image,
-                      unit_amount: item.unit_amount,
-                      quantity: item.quantity,
-                    })
-                  }
-                >
-                  <IoRemoveCircle />
-                </button>
-                <button
-                  onClick={() =>
-                    addProduct({
-                      id: item.id,
-                      name: item.name,
-                      image: item.image,
-                      unit_amount: item.unit_amount,
-                      quantity: item.quantity,
-                    })
-                  }
-                >
-                  <IoAddCircle />
-                </button>
-              </div>
-              <p className="text-sm">
-                {item.unit_amount && formatPrice(item.unit_amount)}
-              </p>
-            </motion.div>
-          </motion.div>
-        ))}
+
+        {/* Cart Items */}
+        {onCheckout === "cart" && (
+          <>
+            {cart.length > 0 && <h1>Here's your shopping list 📃</h1>}
+            {cart.map((item) => (
+              <motion.div layout key={item.id} className="flex py-4 gap-4">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={120}
+                  height={120}
+                  className="rounded-md h-24 object-cover"
+                />
+                <motion.div layout>
+                  <h2>{item.name}</h2>
+                  <div className="flex gap-2">
+                    <h2>Quantity: {item.quantity}</h2>
+                    <button
+                      onClick={() =>
+                        removeProduct({
+                          id: item.id,
+                          name: item.name,
+                          image: item.image,
+                          unit_amount: item.unit_amount,
+                          quantity: item.quantity,
+                        })
+                      }
+                    >
+                      <IoRemoveCircle />
+                    </button>
+                    <button
+                      onClick={() =>
+                        addProduct({
+                          id: item.id,
+                          name: item.name,
+                          image: item.image,
+                          unit_amount: item.unit_amount,
+                          quantity: item.quantity,
+                        })
+                      }
+                    >
+                      <IoAddCircle />
+                    </button>
+                  </div>
+                  <p className="text-sm">
+                    {item.unit_amount && formatPrice(item.unit_amount)}
+                  </p>
+                </motion.div>
+              </motion.div>
+            ))}
+          </>
+        )}
+        {onCheckout === "checkout" && <Checkout />}
         {cart.length > 0 ? (
           <motion.div layout>
             <p>Total: {formatPrice(totalPrice)}</p>
-            <button className="py-2 mt-8 bg-teal-700 w-full rounded-md text-white">
+            <button
+              onClick={() => setCheckout("checkout")}
+              className="py-2 mt-8 bg-teal-700 w-full rounded-md text-white"
+            >
               Checkout
             </button>
           </motion.div>

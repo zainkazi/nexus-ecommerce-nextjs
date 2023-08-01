@@ -4,7 +4,6 @@ import formatPrice from "@/util/priceFormat";
 import Image from "next/image";
 
 export default function ProductPage({ searchParams }: SearchParamTypes) {
-  console.log(searchParams);
   return (
     <div className="flex flex-col xl:flex-row items-center justify-between gap-12">
       <Image

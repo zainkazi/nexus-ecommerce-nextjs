@@ -35,4 +35,10 @@ export const options: NextAuthOptions = {
       }
     },
   },
+  callbacks: {
+    async session({ session, user }) {
+      session.user = user;
+      return session;
+    },
+  },
 };
