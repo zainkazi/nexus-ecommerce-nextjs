@@ -4,10 +4,7 @@ import { options } from "../auth/[...nextauth]/options";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 import { AddCartTypes } from "@/types/AddCartTypes";
-// import { PrismaClient } from "@/prisma/db";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/prisma/db";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2022-11-15",
