@@ -15,7 +15,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 const calculateOrderAmount = (items: AddCartTypes[]) => {
   const totalPrice = items.reduce((acc, item) => {
-    return acc + item.unit_amount! + item.quantity;
+    return acc + item.unit_amount! * item.quantity;
   }, 0);
   return totalPrice;
 };

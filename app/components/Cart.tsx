@@ -36,10 +36,15 @@ const Cart = () => {
         onClick={(e) => e.stopPropagation()}
         className="bg-white absolute right-0 top-0 w-full md:w-2/5 h-screen p-12 overflow-y-scroll text-gray-700"
       >
-        <button onClick={() => setCheckout("cart")}>Go back</button>
-        <button onClick={() => toggleCart()} className="absolute right-4 top-4">
-          X
-        </button>
+        <div className="flex justify-between items-center mb-6">
+          {onCheckout === "cart" && (
+            <button onClick={() => toggleCart()}>{`<--`}</button>
+          )}
+          {onCheckout === "checkout" && (
+            <button onClick={() => setCheckout("cart")}>{`<--`}</button>
+          )}
+          <button onClick={() => toggleCart()}>X</button>
+        </div>
 
         {/* Cart Items */}
         {onCheckout === "cart" && (
@@ -94,7 +99,7 @@ const Cart = () => {
           </>
         )}
         {onCheckout === "checkout" && <Checkout />}
-        {cart.length > 0 ? (
+        {cart.length > 0 && onCheckout == "cart" ? (
           <motion.div layout>
             <p>Total: {formatPrice(totalPrice)}</p>
             <button
@@ -105,21 +110,23 @@ const Cart = () => {
             </button>
           </motion.div>
         ) : (
-          <AnimatePresence>
-            <motion.div
-              animate={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
-              initial={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
-              className="flex flex-col items-center gap-12 text-2xl font-medium pt-48 opacity-75"
-            >
-              <h1>Oops! Your cart is empty 😥</h1>
-              <Image
-                src={emptyCart}
-                alt="empty cart"
-                width={150}
-                height={150}
-              />
-            </motion.div>
-          </AnimatePresence>
+          cart.length <= 0 && (
+            <AnimatePresence>
+              <motion.div
+                animate={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
+                initial={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
+                className="flex flex-col items-center gap-12 text-2xl font-medium pt-48 opacity-75"
+              >
+                <h1>Oops! Your cart is empty 😥</h1>
+                <Image
+                  src={emptyCart}
+                  alt="empty cart"
+                  width={150}
+                  height={150}
+                />
+              </motion.div>
+            </AnimatePresence>
+          )
         )}
       </motion.div>
     </motion.div>
