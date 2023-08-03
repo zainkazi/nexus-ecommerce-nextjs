@@ -31,6 +31,7 @@ export const useCartStore = create<CartState>()(
       isOpen: false,
       paymentIntent: "",
       onCheckout: "cart",
+
       clearCart: () => set(() => ({ cart: [] })),
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
       addProduct: (item) =>
@@ -75,5 +76,20 @@ export const useCartStore = create<CartState>()(
       setCheckout: (val) => set(() => ({ onCheckout: val })),
     }),
     { name: "cartStore" }
+  )
+);
+
+type ThemeStoreTypes = {
+  mode: "light" | "dark";
+  toggleMode: (theme: "light" | "dark") => void;
+};
+
+export const useThemeStore = create<ThemeStoreTypes>()(
+  persist(
+    (set) => ({
+      mode: "dark",
+      toggleMode: (theme) => set(() => ({ mode: theme })),
+    }),
+    { name: "theme-store" }
   )
 );

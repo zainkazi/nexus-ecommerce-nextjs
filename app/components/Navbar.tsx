@@ -8,6 +8,7 @@ import Link from "next/link";
 import Cart from "./Cart";
 import { AiFillShopping } from "react-icons/ai";
 import { AnimatePresence, motion } from "framer-motion";
+import DarkLight from "./DarkLight";
 
 export default function Navbar({ user }: Session) {
   const { toggleCart, cart, isOpen } = useCartStore();
@@ -17,7 +18,7 @@ export default function Navbar({ user }: Session) {
       <Link href={"/"}>
         <h1>Nexus</h1>
       </Link>
-      <ul className="flex items-center gap-12">
+      <ul className="flex items-center gap-8">
         {/* toggle the cart */}
         <li
           onClick={() => toggleCart()}
@@ -37,6 +38,10 @@ export default function Navbar({ user }: Session) {
             )}
           </AnimatePresence>
         </li>
+        {/* Dark mode */}
+        <DarkLight />
+
+        {/* User profile */}
         {user ? (
           <li>
             <details className="dropdown">
