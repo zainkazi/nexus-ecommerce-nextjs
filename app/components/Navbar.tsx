@@ -44,7 +44,7 @@ export default function Navbar({ user }: Session) {
         {/* User profile */}
         {user ? (
           <li>
-            <details className="dropdown">
+            <details className="dropdown cursor-pointer">
               <summary className="avatar">
                 <Image
                   className="rounded-full"
@@ -53,6 +53,7 @@ export default function Navbar({ user }: Session) {
                   width={36}
                   height={36}
                   tabIndex={0}
+                  priority={true}
                 />
               </summary>
               <ul
@@ -60,7 +61,7 @@ export default function Navbar({ user }: Session) {
                 className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <Link
+                  <a
                     className="hover:bg-base-300 p-4 rounded-md"
                     href="/dashboard"
                     onClick={() => {
@@ -70,7 +71,7 @@ export default function Navbar({ user }: Session) {
                     }}
                   >
                     Orders
-                  </Link>
+                  </a>
                 </li>
                 <li
                   onClick={() => {

@@ -20,7 +20,7 @@ export default function Product({
         query: { id, name, image, unit_amount, description, features },
       }}
     >
-      <div className="text-gray-700">
+      <div>
         <Image
           src={image}
           alt={name}
@@ -31,7 +31,7 @@ export default function Product({
         />
         <div className="font-medium py-2">
           <h1>{name}</h1>
-          <h2 className="text-sm text-teal-700">
+          <h2 className="text-sm text-teal-500">
             {unit_amount !== null ? formatPrice(unit_amount as number) : "N/A"}
           </h2>
         </div>

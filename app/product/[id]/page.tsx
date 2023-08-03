@@ -14,12 +14,12 @@ export default function ProductPage({ searchParams }: SearchParamTypes) {
         className="rounded-lg w-auto"
         priority={true}
       />
-      <div className=" font-medium text-gray-700">
+      <div className=" font-medium">
         <h1 className="text-2xl py-2 ">{searchParams.name}</h1>
         <p className="py-2">{searchParams.description}</p>
         <p className="py-2">{searchParams.features}</p>
 
-        <p className="font-bold text-teal-700">
+        <p className="font-bold text-teal-500">
           {searchParams.unit_amount && formatPrice(searchParams.unit_amount)}
         </p>
         <AddToCart {...searchParams} />
