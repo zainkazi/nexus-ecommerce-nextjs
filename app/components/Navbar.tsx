@@ -18,7 +18,7 @@ export default function Navbar({ user }: Session) {
       <Link href={"/"}>
         <h1 className="font-lobster text-2xl">Nexus</h1>
       </Link>
-      <ul className="flex items-center gap-8">
+      <ul className="flex items-center gap-10">
         {/* toggle the cart */}
         <li
           onClick={() => toggleCart()}

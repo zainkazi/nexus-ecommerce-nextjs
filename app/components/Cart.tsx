@@ -8,6 +8,8 @@ import emptyCart from "@/public/empty-cart.png";
 import { AnimatePresence, motion } from "framer-motion";
 import Checkout from "./Checkout";
 import OrderConfirmed from "./OrderConfirmed";
+import { IoArrowBack } from "react-icons/io5";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Cart = () => {
   const {
@@ -37,14 +39,20 @@ const Cart = () => {
         onClick={(e) => e.stopPropagation()}
         className="bg-base-100 absolute right-0 top-0 w-full md:w-2/5 h-screen p-12 overflow-y-scroll"
       >
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-6 text-2xl">
           {onCheckout === "cart" && (
-            <button onClick={() => toggleCart()}>{`<--`}</button>
+            <button onClick={() => toggleCart()}>
+              <IoArrowBack />
+            </button>
           )}
           {onCheckout === "checkout" && (
-            <button onClick={() => setCheckout("cart")}>{`<--`}</button>
+            <button onClick={() => setCheckout("cart")}>
+              <IoArrowBack />
+            </button>
           )}
-          <button onClick={() => toggleCart()}>X</button>
+          <button onClick={() => toggleCart()}>
+            <AiOutlineClose />
+          </button>
         </div>
 
         {/* Cart Items */}

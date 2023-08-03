@@ -1,8 +1,8 @@
 "use client";
 
 import { useCartStore } from "@/store";
-import { AddCartTypes } from "@/types/AddCartTypes";
-import SearchParamTypes, { SearchParams } from "@/types/SearchParamTypes";
+import { SearchParams } from "@/types/SearchParamTypes";
+import { useState } from "react";
 
 const AddToCart = ({
   id,
@@ -12,13 +12,21 @@ const AddToCart = ({
   quantity,
 }: SearchParams) => {
   const { addProduct } = useCartStore();
+  const [adding, setAdding] = useState(false);
 
   return (
     <button
-      onClick={() => addProduct({ id, image, unit_amount, quantity, name })}
-      className="my-12 text-white py-2 px-6 font-medium rounded-md bg-teal-700"
+      onClick={() => {
+        setAdding(true);
+        setTimeout(() => {
+          setAdding(false);
+        }, 500);
+        addProduct({ id, image, unit_amount, quantity, name });
+      }}
+      disabled={adding}
+      className="my-12 text-white py-2 px-6 font-medium rounded-md bg-teal-700 disabled:opacity-25"
     >
-      Add to Cart
+      {adding ? "Adding to cart..." : "Add to Cart"}
     </button>
   );
 };
