@@ -16,7 +16,7 @@ export default function Navbar({ user }: Session) {
   return (
     <nav className="flex items-center justify-between py-12">
       <Link href={"/"}>
-        <h1>Nexus</h1>
+        <h1 className="font-lobster text-2xl">Nexus</h1>
       </Link>
       <ul className="flex items-center gap-8">
         {/* toggle the cart */}

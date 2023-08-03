@@ -11,6 +11,7 @@ export default function ProductPage({ searchParams }: SearchParamTypes) {
         alt={searchParams.name}
         width={600}
         height={600}
+        className="rounded-lg"
       />
       <div className=" font-medium text-gray-700">
         <h1 className="text-2xl py-2 ">{searchParams.name}</h1>

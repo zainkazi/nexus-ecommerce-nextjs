@@ -12,7 +12,7 @@ const Hydrate = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return isHydrated ? (
-    <body className="px-4 md:px-48" data-theme={mode}>
+    <body className="px-4 md:px-48 font-roboto" data-theme={mode}>
       {children}
     </body>
   ) : (

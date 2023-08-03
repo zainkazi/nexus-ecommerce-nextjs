@@ -7,7 +7,16 @@ import { options } from "./api/auth/[...nextauth]/options";
 import Hydrate from "./components/Hydrate";
 import { Roboto, Lobster_Two } from "next/font/google";
 
-const roboto = Roboto({ weight: ["400", "500", "700"], subsets: ["latin"] });
+const roboto = Roboto({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-robot",
+});
+const lobster = Lobster_Two({
+  weight: "700",
+  subsets: ["latin"],
+  variable: "--font-lobster",
+});
 
 export const metadata: Metadata = {
   title: "Nexus",
@@ -23,7 +32,7 @@ export default async function RootLayout({
   const session = await getServerSession(options);
 
   return (
-    <html className={`${roboto.className}`} lang="en">
+    <html className={`${roboto.className} ${lobster.variable}`} lang="en">
       <Hydrate>
         <Navbar user={session?.user} expires={session?.expires as string} />
         {children}
