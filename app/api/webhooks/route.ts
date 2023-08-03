@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import { buffer } from "micro";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/prisma/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2022-11-15",
@@ -14,9 +14,9 @@ export const config = {
   },
 };
 
-export async function POST(req: any) {
+export async function POST(req: NextRequest) {
   const buf = await req.text();
-  const sig = req.headers["stripe-signature"];
+  const sig = req.headers.get("stripe-signature");
 
   if (!sig) {
     return NextResponse.json("Missing the stripe signature");
