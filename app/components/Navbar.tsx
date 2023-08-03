@@ -2,7 +2,7 @@
 
 import { useCartStore } from "@/store";
 import { Session } from "next-auth";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import Cart from "./Cart";
@@ -39,13 +39,47 @@ export default function Navbar({ user }: Session) {
         </li>
         {user ? (
           <li>
-            <Image
-              className="rounded-full"
-              src={user.image as string}
-              alt="user"
-              width={36}
-              height={36}
-            />
+            <details className="dropdown">
+              <summary className="avatar">
+                <Image
+                  className="rounded-full"
+                  src={user.image as string}
+                  alt="user"
+                  width={36}
+                  height={36}
+                  tabIndex={0}
+                />
+              </summary>
+              <ul
+                tabIndex={0}
+                className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <Link
+                    className="hover:bg-base-300 p-4 rounded-md"
+                    href="/dashboard"
+                    onClick={() => {
+                      if (document.activeElement instanceof HTMLElement) {
+                        document.activeElement.blur();
+                      }
+                    }}
+                  >
+                    Orders
+                  </Link>
+                </li>
+                <li
+                  onClick={() => {
+                    signOut();
+                    if (document.activeElement instanceof HTMLElement) {
+                      document.activeElement.blur();
+                    }
+                  }}
+                  className="hover:bg-base-300 p-4 rounded-md"
+                >
+                  Sign out
+                </li>
+              </ul>
+            </details>
           </li>
         ) : (
           <li className="bg-teal-600 text-white py-2 px-4 rounded-md">
