@@ -61,7 +61,7 @@ export default function Navbar({ user }: Session) {
                 className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <a
+                  <Link
                     className="hover:bg-base-300 p-4 rounded-md"
                     href="/dashboard"
                     onClick={() => {
@@ -71,7 +71,7 @@ export default function Navbar({ user }: Session) {
                     }}
                   >
                     Orders
-                  </a>
+                  </Link>
                 </li>
                 <li
                   onClick={() => {
