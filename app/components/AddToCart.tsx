@@ -22,10 +22,10 @@ const AddToCart = ({
         setAdding(true);
         setTimeout(() => {
           setAdding(false);
-        }, 700);
+        }, 400);
       }}
       disabled={adding}
-      className="my-12 text-white py-2 px-6 font-medium rounded-md bg-teal-700 disabled:opacity-25"
+      className="my-6 md:my-12 text-white py-2 w-full px-6 font-medium rounded-md bg-teal-700 disabled:opacity-25"
     >
       {adding ? "Adding to cart..." : "Add to Cart"}
     </button>

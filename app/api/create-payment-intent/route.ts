@@ -2,29 +2,25 @@ import Stripe from "stripe";
 import { getServerSession } from "next-auth/next";
 import { options } from "../auth/[...nextauth]/options";
 import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { AddCartTypes } from "@/types/AddCartTypes";
 import { prisma } from "@/prisma/db";
+import calculateOrderAmount from "@/util/calculateOrderAmount";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2022-11-15",
 });
 
-const calculateOrderAmount = (items: AddCartTypes[]) => {
-  const totalPrice = items.reduce((acc, item) => {
-    return acc + item.unit_amount! * item.quantity;
-  }, 0);
-  return totalPrice;
-};
-
-export async function POST(req: NextApiRequest) {
+export async function POST(req: NextRequest) {
   const userSession = await getServerSession(options);
   if (!userSession?.user) {
     return NextResponse.json({ message: "Not logged in" }, { status: 403 });
   }
 
-  const { items, payment_intent_id } = req.body;
-  const total = 100;
+  const requestBody = await req.json();
+  const { items, payment_intent_id } = requestBody;
+
+  const total = calculateOrderAmount(items);
 
   const orderData = {
     user: { connect: { id: userSession.user?.id } },
@@ -33,28 +29,29 @@ export async function POST(req: NextApiRequest) {
     status: "pending",
     payment_intent_id: payment_intent_id,
     products: {
-      create:
-        items &&
-        items.map((item) => ({
-          name: item.name,
-          description: item.description || null,
-          unit_amount: parseFloat(item.unit_amount),
-          image: item.image,
-          quantity: item.quantity,
-        })),
+      create: items.map((item) => ({
+        name: item.name,
+        description: item.description || null,
+        unit_amount: parseFloat(item.unit_amount),
+        image: item.image,
+        quantity: item.quantity,
+      })),
     },
   };
 
   if (payment_intent_id) {
     // update the order
+
     const currentIntent = await stripe.paymentIntents.retrieve(
       payment_intent_id
     );
+
     if (currentIntent) {
       const updatedIntent = await stripe.paymentIntents.update(
         payment_intent_id,
         { amount: total }
       );
+
       const existingOrder = await prisma.order.findFirst({
         where: { payment_intent_id: updatedIntent.id },
         include: { products: true },
@@ -69,15 +66,13 @@ export async function POST(req: NextApiRequest) {
           amount: total,
           products: {
             deleteMany: {},
-            create:
-              items &&
-              items.map((item) => ({
-                name: item.name,
-                description: item.description || null,
-                unit_amount: parseFloat(item.unit_amount),
-                image: item.image,
-                quantity: item.quantity,
-              })),
+            create: items.map((item) => ({
+              name: item.name,
+              description: item.description || null,
+              unit_amount: parseFloat(item.unit_amount),
+              image: item.image,
+              quantity: item.quantity,
+            })),
           },
         },
       });

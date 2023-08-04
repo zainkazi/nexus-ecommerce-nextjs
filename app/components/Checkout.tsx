@@ -32,7 +32,7 @@ const Checkout = () => {
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ item: cart, payment_intent_id: paymentIntent }),
+      body: JSON.stringify({ items: cart, payment_intent_id: paymentIntent }),
     })
       .then((res) => {
         if (res.status === 403) {

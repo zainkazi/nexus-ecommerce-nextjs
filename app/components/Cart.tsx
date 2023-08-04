@@ -37,7 +37,7 @@ const Cart = () => {
       <motion.div
         layout
         onClick={(e) => e.stopPropagation()}
-        className="bg-base-100 absolute right-0 top-0 w-full md:w-2/5 h-screen p-12 overflow-y-scroll"
+        className="bg-base-100 absolute right-0 top-0 w-full md:w-2/5 h-screen py-6 px-4 md:p-12 overflow-y-scroll"
       >
         <div className="flex justify-between items-center mb-6 text-2xl">
           {onCheckout === "cart" && (
@@ -70,13 +70,14 @@ const Cart = () => {
                   alt={item.name}
                   width={120}
                   height={120}
+                  quality={20}
                   className="rounded-md h-24 object-cover mx-4 w-auto"
                   priority={true}
                 />
                 <motion.div layout>
                   <h2>{item.name}</h2>
                   <div className="flex gap-2">
-                    <h2>Quantity: {item.quantity}</h2>
+                    <h2 className="text-sm">Quantity: {item.quantity}</h2>
                     <button
                       onClick={() =>
                         removeProduct({

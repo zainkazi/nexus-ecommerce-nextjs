@@ -25,7 +25,7 @@ export default function OrderConfirmed() {
       {" "}
       <div className="flex items-center justify-center flex-col">
         <h1 className="text-xl font-medium">Your order has been placed 🚀</h1>
-        <h2 className="text-sm my-4 text">Check you email for receipt</h2>
+        <h2 className="text-sm my-4">Check you email for receipt</h2>
         <Image
           src={orderComplete}
           className="my-8"
@@ -35,8 +35,9 @@ export default function OrderConfirmed() {
         />
 
         <div className="flex items-center justify-center gap-12">
-          <a href="/dashboard">
+          <Link href="/dashboard">
             <button
+              className="btn bg-teal-700 text-white"
               onClick={() => {
                 setTimeout(() => {
                   setCheckout("cart");
@@ -47,7 +48,7 @@ export default function OrderConfirmed() {
             >
               Check your order
             </button>
-          </a>
+          </Link>
         </div>
       </div>
     </motion.div>

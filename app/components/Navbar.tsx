@@ -14,11 +14,11 @@ export default function Navbar({ user }: Session) {
   const { toggleCart, cart, isOpen } = useCartStore();
 
   return (
-    <nav className="flex items-center justify-between py-12">
+    <nav className="flex items-center justify-between py-4 md:py-12 mb-4 md:mb-0">
       <Link href={"/"}>
         <h1 className="font-lobster text-2xl">Nexus</h1>
       </Link>
-      <ul className="flex items-center gap-10">
+      <ul className="flex items-center gap-6 md:gap-10">
         {/* toggle the cart */}
         <li
           onClick={() => toggleCart()}
@@ -44,7 +44,7 @@ export default function Navbar({ user }: Session) {
         {/* User profile */}
         {user ? (
           <li>
-            <details className="dropdown cursor-pointer">
+            <div className="dropdown dropdown-end cursor-pointer">
               <summary className="avatar">
                 <Image
                   className="rounded-full"
@@ -58,7 +58,7 @@ export default function Navbar({ user }: Session) {
               </summary>
               <ul
                 tabIndex={0}
-                className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+                className="p-2 shadow menu dropdown-content z-[1] bg-base-200 t rounded-box w-52"
               >
                 <li>
                   <Link
@@ -85,11 +85,16 @@ export default function Navbar({ user }: Session) {
                   Sign out
                 </li>
               </ul>
-            </details>
+            </div>
           </li>
         ) : (
-          <li className="bg-teal-600 text-white py-2 px-4 rounded-md">
-            <button onClick={() => signIn()}>Sign In</button>
+          <li>
+            <button
+              className="bg-teal-600 text-white py-2 px-4 rounded-md"
+              onClick={() => signIn()}
+            >
+              Sign In
+            </button>
           </li>
         )}
       </ul>

@@ -44,7 +44,7 @@ export default async function Dashboard() {
           <p className="text-xs">
             Time: {new Date(order.createdAt).toString()}
           </p>
-          <div className="text-sm lg:flex items-center  gap-4">
+          <div className="text-sm lg:flex items-center gap-4">
             {order.products.map((product) => (
               <div className="py-2" key={product.id}>
                 <h2 className="py-2">{product.name}</h2>
@@ -54,6 +54,7 @@ export default async function Dashboard() {
                     width={36}
                     height={36}
                     alt={product.name}
+                    quality={20}
                     priority={true}
                     className="w-auto"
                   />
