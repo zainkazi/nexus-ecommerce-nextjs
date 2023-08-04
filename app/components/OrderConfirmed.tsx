@@ -35,7 +35,7 @@ export default function OrderConfirmed() {
         />
 
         <div className="flex items-center justify-center gap-12">
-          <Link href="/dashboard">
+          <a href="/dashboard">
             <button
               onClick={() => {
                 setTimeout(() => {
@@ -47,7 +47,7 @@ export default function OrderConfirmed() {
             >
               Check your order
             </button>
-          </Link>
+          </a>
         </div>
       </div>
     </motion.div>
