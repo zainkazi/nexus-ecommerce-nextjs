@@ -71,6 +71,7 @@ const Cart = () => {
                   width={120}
                   height={120}
                   className="rounded-md h-24 object-cover mx-4 w-auto"
+                  priority={true}
                 />
                 <motion.div layout>
                   <h2>{item.name}</h2>
