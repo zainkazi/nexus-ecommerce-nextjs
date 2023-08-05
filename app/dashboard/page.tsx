@@ -3,6 +3,7 @@ import { options } from "../api/auth/[...nextauth]/options";
 import { prisma } from "@/prisma/db";
 import formatPrice from "@/util/priceFormat";
 import Image from "next/image";
+
 export const revalidate = 0;
 
 const fetchOrders = async () => {

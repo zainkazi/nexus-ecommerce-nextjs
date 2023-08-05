@@ -91,7 +91,7 @@ export default function Navbar({ user }: Session) {
           <li>
             <button
               className="bg-teal-600 text-white py-2 px-4 rounded-md"
-              onClick={() => signIn()}
+              onClick={() => signIn("google")}
             >
               Sign In
             </button>
